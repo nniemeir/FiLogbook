@@ -1,5 +1,6 @@
 #Author: Natalie Niemeir
 #Date: 1/6/2021
+#FiLogbook
 #Simple financial logbook to keep track of money earned/spent fairly conveniently 
 import os
 from os.path import exists
