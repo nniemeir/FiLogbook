@@ -6,42 +6,42 @@ import os
 from os.path import exists
 from datetime import datetime
 while True:
-  WALLET_CHOICE = input("1. New Wallet\n2. Add/Subtract From Existing Wallet\n3. Delete Existing Wallet\n4. View Existing Wallet Log\n")
+  LOG_CHOICE = input("1. New Logbook\n2. Add/Subtract From Existing Logbook\n3. Delete Existing Logbook\n4. View Existing Logbook\n")
   cwd = os.getcwd()
   file_exists = exists("CB.txt")
-  if WALLET_CHOICE == "1":
+  if LOG_CHOICE == "1":
     file_exists = exists("CB.txt")
     if file_exists == True:
-        print("Wallet already exists")
+        print("Logbook already exists")
     else:
       #CB.txt is opened in write mode and user input is written to it
       #Same input is written in a more readable format to the log
-      WALLET_FILE = open("CB.txt", "x")
+      LOG_FILE = open("CB.txt", "x")
       INITIAL_BALANCE = input("Enter Balance:\n")
-      WALLET_FILE.write(INITIAL_BALANCE)
+      LOG_FILE.write(INITIAL_BALANCE)
       FIRSTENTRY = open("LOG.txt", "a")
       FIRSTENTRY.write("\n Initial Balance Set to $" + INITIAL_BALANCE)
       FIRSTENTRY.close()
-      print("Wallet Created")
+      print("Logbook Created")
     quit()
-  elif WALLET_CHOICE == "2":
+  elif LOG_CHOICE == "2":
     file_exists = exists("CB.txt")
     if file_exists == True:
         print("")
     else:
-        print("Wallet Does Not Exist")
+        print("Logbook Does Not Exist")
         quit()
-  elif WALLET_CHOICE == "3":
+  elif LOG_CHOICE == "3":
     #If balance file exists, it is deleted along with the log file
     if file_exists == True:
       os.remove("CB.txt")
       os.remove("LOG.txt")
-      print("Wallet Deleted")
+      print("Logbook Deleted")
       quit()
     else:
-      print("Wallet Does Not Exist")
+      print("Logbook Does Not Exist")
       quit()
-  elif WALLET_CHOICE == "4":
+  elif LOG_CHOICE == "4":
     if file_exists == True:
       logdisplay = open("LOG.txt", "r")
       s = logdisplay.read()
@@ -49,7 +49,7 @@ while True:
       logdisplay.close()
       quit()
     else:
-      print("Wallet Does Not Exist")
+      print("Logbook Does Not Exist")
       quit()
   else:
     print("Invalid Choice")
