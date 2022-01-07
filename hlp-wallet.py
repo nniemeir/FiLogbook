@@ -1,12 +1,13 @@
 #Author: Natalie Niemeir
 #Date: 1/6/2021
-#Manages changes to balance
+#Simple financial logbook to keep track of money earned/spent fairly conveniently 
 import os
 from os.path import exists
 from datetime import datetime
 while True:
-  WALLET_CHOICE = input("1. New Wallet\n2. Open Existing Wallet\n3. Delete Existing Wallet\n")
+  WALLET_CHOICE = input("1. New Wallet\n2. Add/Subtract From Existing Wallet\n3. Delete Existing Wallet\n4. View Existing Wallet Log\n")
   cwd = os.getcwd()
+  file_exists = exists("CB.txt")
   if WALLET_CHOICE == "1":
     file_exists = exists("CB.txt")
     if file_exists == True:
@@ -31,7 +32,6 @@ while True:
         quit()
   elif WALLET_CHOICE == "3":
     #If balance file exists, it is deleted along with the log file
-    file_exists = exists("CB.txt")
     if file_exists == True:
       os.remove("CB.txt")
       os.remove("LOG.txt")
@@ -40,7 +40,20 @@ while True:
     else:
       print("Wallet Does Not Exist")
       quit()
-  #Balance is read into variable c
+  elif WALLET_CHOICE == "4":
+    if file_exists == True:
+      logdisplay = open("LOG.txt", "r")
+      s = logdisplay.read()
+      print(s)
+      logdisplay.close()
+      quit()
+    else:
+      print("Wallet Does Not Exist")
+      quit()
+  else:
+    print("Invalid Choice")
+    quit()
+  #CB.txt is read into variable c
   with open ("CB.txt", "r") as myfile:
     c=myfile.readlines()
     line_number = 1
@@ -75,6 +88,6 @@ while True:
   REGIONAL_TIME = now.strftime("%m/%d/%Y %H:%M:%S")
   #New line containing details of balance change added to log file
   log = open("LOG.txt", "a")
-  log.write("\n " + REGIONAL_TIME +  " | Balance changed by $" + BALANCE_CHANGE + " | Description: " + DESCRIPTION)
+  log.write("\n " + REGIONAL_TIME +  " | Balance changed by $" + BALANCE_CHANGE + " | Description: " + DESCRIPTION + " | New Balance: $" + str(NEW_BALANCE))
   log.close()
   quit()
