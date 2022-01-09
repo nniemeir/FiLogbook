@@ -20,7 +20,7 @@ while True:
       INITIAL_BALANCE = input("Enter Balance:\n")
       LOG_FILE.write(INITIAL_BALANCE)
       FIRSTENTRY = open("LOG.txt", "a")
-      FIRSTENTRY.write("\n Initial Balance Set to $" + INITIAL_BALANCE)
+      FIRSTENTRY.write(f"\n Initial Balance Set to ${INITIAL_BALANCE}")
       FIRSTENTRY.close()
       print("Logbook Created")
     quit()
@@ -70,12 +70,12 @@ while True:
           BALANCE += b
         elif b == '\n':
           a += 1
-  print("Current Balance is $" + BALANCE)
+  print(f"Current Balance is ${BALANCE}")
   BALANCE_CHANGE = input("Enter amount to change balance by\n")
   #Variables are converted to floats for calculation
   NEW_BALANCE = float(BALANCE) + float(BALANCE_CHANGE)
   DESCRIPTION = input("Reason for change?\n")
-  print("Your new balance is $" + str(NEW_BALANCE))
+  print(f"Your new balance is ${NEW_BALANCE}")
   #New balance replaces the old one in the balance file
   BC = open("CB.txt", "rt")
   change = BC.read()
@@ -89,6 +89,6 @@ while True:
   REGIONAL_TIME = now.strftime("%m/%d/%Y %H:%M:%S")
   #New line containing details of balance change added to log file
   log = open("LOG.txt", "a")
-  log.write("\n " + REGIONAL_TIME +  " | Balance changed by $" + BALANCE_CHANGE + " | Description: " + DESCRIPTION + " | New Balance: $" + str(NEW_BALANCE))
+  log.write(f"\n {REGIONAL_TIME} | Balance changed by ${BALANCE_CHANGE} | Description: {DESCRIPTION} | New Balance: ${NEW_BALANCE}")
   log.close()
   quit()
