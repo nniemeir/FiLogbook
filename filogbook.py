@@ -7,7 +7,6 @@ from os.path import exists
 from datetime import datetime
 while True:
   LOG_CHOICE = input("1. New Logbook\n2. Add/Subtract From Existing Logbook\n3. Delete Existing Logbook\n4. View Existing Logbook\n")
-  cwd = os.getcwd()
   file_exists = exists("CB.txt")
   if LOG_CHOICE == "1":
     file_exists = exists("CB.txt")
