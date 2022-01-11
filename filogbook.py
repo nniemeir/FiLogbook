@@ -3,6 +3,8 @@
 #FiLogbook
 #Simple financial logbook to keep track of money earned/spent fairly conveniently 
 import os
+import csv
+import pandas
 from os.path import exists
 from datetime import datetime
 while True:
@@ -17,10 +19,10 @@ while True:
       #Same input is written in a more readable format to the log
       log_file = open("CB.txt", "x")
       initial_balance = input("Enter Balance:\n")
-      log_file.write(initial_balance)
-      first_entry = open("LOG.txt", "a")
-      first_entry.write(f"\n Initial Balance Set to ${initial_balance}")
-      first_entry.close()
+      log_file.write(initial_balance)  
+    with open('log.csv', mode='a') as log_file:
+      employee_writer = csv.writer(log_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+      employee_writer.writerow(["Date", "Change Amount", "After Balance", "Description"])
       print("Logbook Created")
     quit()
   elif log_choice == "2":
@@ -34,7 +36,7 @@ while True:
     #If balance file exists, it is deleted along with the log file
     if file_exists == True:
       os.remove("CB.txt")
-      os.remove("LOG.txt")
+      os.remove("log.csv")
       print("Logbook Deleted")
       quit()
     else:
@@ -42,11 +44,10 @@ while True:
       quit()
   elif log_choice == "4":
     if file_exists == True:
-      logdisplay = open("LOG.txt", "r")
-      s = logdisplay.read()
-      print(s)
-      logdisplay.close()
+      df = pandas.read_csv('log.csv')
+      print(df)
       quit()
+      
     else:
       print("Logbook Does Not Exist")
       quit()
@@ -85,9 +86,9 @@ while True:
   balance_replacement.close()
   #Date and time written to regional_time using Datetime module
   now = datetime.now()
-  regional_time = now.strftime("%m/%d/%Y %H:%M:%S")
+  regional_time = now.strftime("%m/%d/%Y")
   #New line containing details of balance change added to log file
-  log = open("LOG.txt", "a")
-  log.write(f"\n {regional_time} | Balance changed by ${balance_change} | Description: {description} | New Balance: ${new_balance}")
-  log.close()
+  with open('log.csv', mode='a') as log_file:
+    employee_writer = csv.writer(log_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+    employee_writer.writerow([regional_time, balance_change, new_balance, description])
   quit()
