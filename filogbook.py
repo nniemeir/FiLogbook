@@ -22,7 +22,7 @@ while True:
       log_file.write(initial_balance)  
     with open('log.csv', mode='a') as log_file:
       employee_writer = csv.writer(log_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-      employee_writer.writerow(["Date", "Change Amount", "After Balance", "Description"])
+      employee_writer.writerow(["Date", "Change Amount", "Balance After", "Type", "Description"])
       print("Logbook Created")
     quit()
   elif log_choice == "2":
@@ -74,7 +74,12 @@ while True:
   balance_change = input("Enter amount to change balance by\n")
   #Variables are converted to floats for calculation
   new_balance = float(balance) + float(balance_change)
-  description = input("Reason for change?\n")
+  groups = ["Academic", "Entertainment", "Groceries", "Other"]
+  grouping = input("1. Academic\n2. Entertainment\n3. Groceries\n4. Other\n")
+  grouping = int(grouping)
+  grouping = grouping - 1
+  grouping = str((groups[grouping]))
+  description = input("Description?\n")
   print(f"Your new balance is ${new_balance}")
   #New balance replaces the old one in the balance file
   balance_replacement = open("CB.txt", "rt")
@@ -90,5 +95,5 @@ while True:
   #New line containing details of balance change added to log file
   with open('log.csv', mode='a') as log_file:
     employee_writer = csv.writer(log_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-    employee_writer.writerow([regional_time, balance_change, new_balance, description])
+    employee_writer.writerow([regional_time, balance_change, new_balance, grouping, description])
   quit()
