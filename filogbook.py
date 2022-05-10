@@ -5,6 +5,7 @@
 import os
 import csv
 import pandas
+import pandas as pd
 from os.path import exists
 from datetime import datetime
 while True:
@@ -43,11 +44,21 @@ while True:
       print("Logbook Does Not Exist")
       quit()
   elif log_choice == "4":
+    sorted = pd.read_csv("log.csv")
     if file_exists == True:
-      df = pandas.read_csv('log.csv')
-      print(df)
+      sort_choice = input("Sort By:\n1. Date\n2. Change Amount\n3. Type\n")
+      if sort_choice == "1":
+        sorted = pandas.read_csv('log.csv')
+      elif sort_choice == "2":
+        sorted.sort_values(["Change Amount"], axis=0, ascending=[False], inplace=True)
+      elif sort_choice == "3":
+        sorted.sort_values(["Type"], axis=0, ascending=[True], inplace=True)
+      else:
+        print("Invalid Choice")
+        quit()
+      print("\nAfter sorting:")
+      print(sorted)
       quit()
-      
     else:
       print("Logbook Does Not Exist")
       quit()
